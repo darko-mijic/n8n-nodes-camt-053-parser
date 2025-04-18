@@ -8,8 +8,6 @@ A community node for [n8n](https://n8n.io/) that parses ISO 20022 CAMT.053 bank 
 >
 > [n8n](https://n8n.io/) is a powerful, open-source workflow automation tool. Community nodes extend n8n to integrate with new services or add new functionality. Learn more in the [n8n Community Nodes documentation](https://docs.n8n.io/integrations/community-nodes/).
 
----
-
 ## Features
 
 - Parses ISO 20022 CAMT.053.001.02, .001.08, and .001.13 XML files
