@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-camt-053-parser",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "n8n node for parsing ISO 20022 camt.053 messages to JSON",
   "keywords": [
     "n8n-community-node-package",
@@ -32,10 +32,10 @@
     "preinstall": "npx only-allow pnpm",
     "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "format": "prettier nodes package.json --write",
+    "lint": "eslint nodes package.json",
+    "lintfix": "eslint nodes package.json --fix",
+    "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js nodes package.json"
   },
   "files": [
     "dist"
