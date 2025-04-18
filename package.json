@@ -35,9 +35,9 @@
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [
-    ],
+    "credentials": [],
     "nodes": [
+      "dist/nodes/Camt053Parser/Camt053Parser.node.js"
     ]
   },
   "devDependencies": {
@@ -50,5 +50,8 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "dependencies": {
+    "camt-parser": "^2.0.0"
   }
 }
