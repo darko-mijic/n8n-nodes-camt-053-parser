@@ -1,6 +1,6 @@
 # n8n-nodes-camt-053-parser
 
-A community node for [n8n](https://n8n.io/) that parses ISO 20022 CAMT.053 bank statement XML files into structured JSON. This node leverages the robust [camt-parser](https://github.com/your-org/iso-20022-camt-053-parser) engine and is designed for use in n8n workflows.
+A community node for [n8n](https://n8n.io/) that parses ISO 20022 CAMT.053 bank statement XML files into structured JSON. This node leverages the robust [camt-parser](https://github.com/darko-mijic/iso-20022-camt-053-parser) engine and is designed for use in n8n workflows.
 
 > **What are n8n Community Nodes?**
 >
