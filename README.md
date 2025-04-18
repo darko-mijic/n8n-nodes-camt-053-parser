@@ -28,42 +28,63 @@ A community node for [n8n](https://n8n.io/) that parses ISO 20022 CAMT.053 bank 
 
 ## Output
 
-- Each **statement** in the XML is output as a separate n8n item (object).
-- This is different from the original camt-parser library, which returns all statements as an array. Here, n8n's itemized output allows you to process each statement individually in subsequent nodes.
+- Each **statement** in the XML is output as a separate n8n item, with the following structure:
 
-### Example Output Item
 ```json
 {
-  "statementTitle": "Statement 001",
-  "accountHolder": "John Doe",
-  "accountIBAN": "DE1234567890",
-  "currency": "EUR",
-  "statementDate": "2024-01-31",
-  "openingBalance": 1000.00,
-  "closingBalance": 1200.00,
-  "numberOfCredits": 3,
-  "totalCredits": 500.00,
-  "numberOfDebits": 2,
-  "totalDebits": 300.00,
-  "transactions": [
-    {
-      "date": "2024-01-30",
-      "amount": 200.00,
+  "json": {
+    "statement": {
+      "statementTitle": "Statement 001",
+      "accountHolder": "John Doe",
+      "accountIBAN": "DE1234567890",
       "currency": "EUR",
-      "type": "credit",
-      "counterpartyName": "Acme Corp",
-      "counterpartyAccountIBAN": "DE0987654321",
-      "description": "Invoice 1234",
-      "descriptionAdditional": null,
-      "endToEndReference": "E2E-REF-001",
-      "remittanceReference": "RF18539007547034",
-      "purpose": "SALA"
+      "statementDate": "2024-01-31",
+      "openingBalance": 1000.00,
+      "closingBalance": 1200.00,
+      "numberOfCredits": 3,
+      "totalCredits": 500.00,
+      "numberOfDebits": 2,
+      "totalDebits": 300.00,
+      "transactions": [
+        {
+          "date": "2024-01-30",
+          "amount": 200.00,
+          "currency": "EUR",
+          "type": "credit",
+          "counterpartyName": "Acme Corp",
+          "counterpartyAccountIBAN": "DE0987654321",
+          "description": "Invoice 1234",
+          "descriptionAdditional": null,
+          "endToEndReference": "E2E-REF-001",
+          "remittanceReference": "RF18539007547034",
+          "purpose": "SALA"
+        }
+      ]
     }
-  ]
+  }
 }
 ```
-- Fields may be `null` if not present in the source XML.
-- See [camt-parser documentation](#parser-features--details) for full output structure details.
+- All fields conform to the official `Camt053Statement` type from the [camt-parser](https://github.com/your-org/iso-20022-camt-053-parser).
+- If parsing fails for an input, and “Continue on Fail” is enabled, the output will be:
+
+```json
+{
+  "json": {
+    "error": "Error message here",
+    "itemIndex": 0
+  }
+}
+```
+- The output structure is enforced by the `Camt053Output` TypeScript type, which is always one of:
+  - `{ statement: Camt053Statement }`
+  - `{ error: string, itemIndex: number }`
+
+- This is different from the original camt-parser library, which returns all statements as an array. Here, n8n's itemized output allows you to process each statement individually in subsequent nodes.
+
+### Error Handling
+
+- If “Continue on Fail” is enabled, errors for individual items will be output as above, and parsing will continue for other items.
+- If not enabled, the workflow will stop on the first error.
 
 ## Supported Standards
 
