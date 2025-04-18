@@ -106,7 +106,7 @@ A community node for [n8n](https://n8n.io/) that parses ISO 20022 CAMT.053 bank 
 
 ## Parser Features & Details
 
-This node is powered by the [camt-parser](https://github.com/your-org/iso-20022-camt-053-parser) engine. For detailed field descriptions, supported versions, and extension instructions, see the [camt-parser README](https://github.com/your-org/iso-20022-camt-053-parser#readme).
+This node is powered by the [camt-parser](https://github.com/darko-mijic/iso-20022-camt-053-parser) engine. For detailed field descriptions, supported versions, and extension instructions, see the [camt-parser README](https://github.com/darko-mijic/iso-20022-camt-053-parser#readme).
 
 ## License
 
