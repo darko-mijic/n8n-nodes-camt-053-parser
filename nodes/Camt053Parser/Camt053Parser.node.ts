@@ -3,6 +3,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	NodeOperationError,
 } from 'n8n-workflow';
 
 // Import your camt-parser npm library
@@ -41,16 +42,22 @@ export class Camt053Parser implements INodeType {
 		for (let i = 0; i < items.length; i++) {
 			try {
 				const xml = this.getNodeParameter('xml', i) as string;
-				const json = await parseCamt053(xml); // Await the promise returned by parseCamt053
-				returnData.push({
-					json: {
-						parsed: JSON.stringify(json),
-					},
-				});
+				if (!xml || typeof xml !== 'string') {
+					throw new NodeOperationError(this.getNode(), 'Input XML is empty or invalid.');
+				}
+				const parsed = await parseCamt053(xml);
+				if (Array.isArray(parsed)) {
+					for (const statement of parsed) {
+						returnData.push({ json: statement });
+					}
+				} else {
+					returnData.push({ json: parsed });
+				}
 			} catch (error) {
 				returnData.push({
 					json: {
 						error: error instanceof Error ? error.message : error,
+						itemIndex: i,
 					},
 				});
 			}
